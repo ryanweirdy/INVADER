@@ -8,8 +8,9 @@ public class CaptureVideo : MonoBehaviour
     public bool TakingPhoto = false;
     public GameObject TXT_Photo;
 
-    public bool TakingVideo = false;
+    /*public bool TakingVideo = false;
     public GameObject TXT_Video;
+    */
 
     public void TakePhoto()
     {
@@ -21,15 +22,15 @@ public class CaptureVideo : MonoBehaviour
         TXT_Photo.SetActive(true);
         yield return new WaitForEndOfFrame();
 
-        Texture2D photo = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        Texture2D photoCapture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
 
-        photo.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        photoCapture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 
-        photo.Apply();
+        photoCapture.Apply();
 
         string photoName = "game_title_" + System.DateTime.Now.ToString("f");
 
-        NativeGallery.SaveImageToGallery(photo, "gameTitle", photoName);
+        NativeGallery.SaveImageToGallery(photoCapture, "gameTitle", photoName);
 
         TakingPhoto = false;
         TXT_Photo.SetActive(false);
